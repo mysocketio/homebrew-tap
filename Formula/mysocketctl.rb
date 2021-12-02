@@ -13,7 +13,7 @@ class Mysocketctl < Formula
     end
   elsif OS.linux?
     if Hardware::CPU.intel?
-      url "https://download.edge.mysocket.io/linux_amd64/mysocketctl",
+      url "https://download.edge.mysocket.io/linux_amd64/mysocketctl"
       sha256 "3597d2571fd25acce4a4543a1f08dd5c7112e3f826d01fcd775f182f10b94f4e"
     end
   end
