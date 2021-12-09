@@ -1,20 +1,20 @@
 class Mysocketctl < Formula
   desc "Mysocket.io command line interface"
   homepage "https://github.com/mysocketio/mysocketctl-go.git"
-  version "v1.0-83-g6ee2e48"
+  version "v1.0-85-gcf8f537"
 
   if OS.mac?
     if Hardware::CPU.intel?
       url "https://download.edge.mysocket.io/darwin_amd64/mysocketctl"
-      sha256 "d5cf1253c3dcb50949cf9ef51faebf1d1f165638a412d57837b646e4af0cb9ef"
+      sha256 "5d2c65ea2bef99637ab5d76521a9f7b1a5aa01ceca17e1506f37bb77e52312c6"
     elsif Hardware::CPU.arm?
       url "https://download.edge.mysocket.io/darwin_arm64/mysocketctl"
-      sha256 "ac2373a402aab9139db941e7e31d9be1387a4d4c2ea48895c327ebbddef4a6c6"
+      sha256 "d6c45ba7ebc3de27bc9d554992a77062a78761caf042ac53d69e244496e2023a"
     end
   elsif OS.linux?
     if Hardware::CPU.intel?
       url "https://download.edge.mysocket.io/linux_amd64/mysocketctl"
-      sha256 "3597d2571fd25acce4a4543a1f08dd5c7112e3f826d01fcd775f182f10b94f4e"
+      sha256 "7d1aca6fa8fe0b4cb94b33c0756e5a6f697df2f13637c2b44ae0e3770f2f6a78"
     end
   end
 
