@@ -1,25 +1,47 @@
 class Mysocketctl < Formula
   desc "Mysocket.io command-line interface"
   homepage "https://github.com/mysocketio/mysocketctl-go"
-  version "1.0-85-gcf8f537"
+  version "1.0"
+
+  require "uri"
+  require "net/http"
 
   if OS.mac?
     if Hardware::CPU.intel?
       url "https://download.edge.mysocket.io/darwin_amd64/mysocketctl"
-      sha256 "5d2c65ea2bef99637ab5d76521a9f7b1a5aa01ceca17e1506f37bb77e52312c6"
+      sha_url = URI("https://download.edge.mysocket.io/darwin_amd64/sha256-checksum.txt")
+      res = Net::HTTP.get_response(sha_url)
+      sha256 res.body.lines.first.chomp
     elsif Hardware::CPU.arm?
       url "https://download.edge.mysocket.io/darwin_arm64/mysocketctl"
-      sha256 "d6c45ba7ebc3de27bc9d554992a77062a78761caf042ac53d69e244496e2023a"
+      sha_url = URI("https://download.edge.mysocket.io/darwin_arm64/sha256-checksum.txt")
+      res = Net::HTTP.get_response(sha_url)
+      sha256 res.body.lines.first.chomp
     end
   elsif OS.linux?
     if Hardware::CPU.intel?
       url "https://download.edge.mysocket.io/linux_amd64/mysocketctl"
-      sha256 "7d1aca6fa8fe0b4cb94b33c0756e5a6f697df2f13637c2b44ae0e3770f2f6a78"
+      sha_url = URI("https://download.edge.mysocket.io/linux_amd64/sha256-checksum.txt")
+      res = Net::HTTP.get_response(sha_url)
+      sha256 res.body.lines.first.chomp
     end
   end
 
   def install
     bin.install "mysocketctl"
+    chmod 0555, "#{bin}/mysocketctl"
+
+    # Install bash completion
+    output = Utils.safe_popen_read("#{bin}/mysocketctl", "completion", "bash")
+    (bash_completion/"mysocketctl").write output
+
+    # Install zsh completion
+    output = Utils.safe_popen_read("#{bin}/mysocketctl", "completion", "zsh")
+    (zsh_completion/"_mysocketctl").write output
+
+    # Install fish completion
+    output = Utils.safe_popen_read("#{bin}/mysocketctl", "completion", "fish")
+    (fish_completion/"mysocketctl.fish").write output
   end
 
   test do
